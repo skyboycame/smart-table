@@ -33,8 +33,10 @@ export function initTable(settings, onAction) {
     const nextRows = data.map((item) => {
       const row = cloneTemplate(rowTemplate);
       Object.keys(item).forEach((key) => {
-        if (key in row.elements) {
-          row.elements[key].textContent = item[key];
+         if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) {
+           el.value = item[key];   
+        } else {
+          el.textContent = item[key]; 
         }
       });
       return row.container;
