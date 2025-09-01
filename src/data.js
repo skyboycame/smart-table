@@ -7,6 +7,7 @@ export function initData(sourceData) {
   let customers;
   let lastResult;
   let lastQuery;
+  
 
   // функция для приведения строк в тот вид, который нужен нашей таблице
   const mapRecords = (data) =>

@@ -29,20 +29,31 @@ export function initTable(settings, onAction) {
   });
 
   const render = (data) => {
-    // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
-    const nextRows = data.map((item) => {
-      const row = cloneTemplate(rowTemplate);
-      Object.keys(item).forEach((key) => {
-         if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) {
-           el.value = item[key];   
+  // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
+  const nextRows = data.map((item) => {
+    const row = cloneTemplate(rowTemplate);
+
+    Object.keys(item).forEach((key) => {
+      if (key in row.elements) {
+        const el = row.elements[key];
+
+        if (
+          el instanceof HTMLInputElement ||
+          el instanceof HTMLSelectElement ||
+          el instanceof HTMLTextAreaElement
+        ) {
+          el.value = item[key];
         } else {
-          el.textContent = item[key]; 
+          el.textContent = item[key];
         }
-      });
-      return row.container;
+      }
     });
-    root.elements.rows.replaceChildren(...nextRows);
-  };
+
+    return row.container;
+  });
+
+  root.elements.rows.replaceChildren(...nextRows);
+};
 
   return { ...root, render };
 }
