@@ -57,3 +57,6 @@ export function initTable(settings, onAction) {
 
   return { ...root, render };
 }
+
+
+
